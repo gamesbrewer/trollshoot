@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>Troll Shoot</title>
+<link rel="stylesheet" href="Styles.css" type="text/css">
+<script src="gozer0.1/rect.js"></script>
+<script src="gozer0.1/hashmap.js"></script>
+<script src="gozer0.1/gamestate.js"></script>
+<script src="gozer0.1/actor.js"></script>
+<script src="gozer0.1/button.js"></script>
+<script src="gozer0.1/canvas2d.js"></script>
+<script src="gozer0.1/input.js"></script>
+<script src="gozer0.1/engine.js"></script>
+</head>
+<body bgcolor="white" onload="initialize();">
+	<canvas id="canvas">
+		<p>Your browser does not support the canvas element.</p>
+	</canvas>
+	<script>
+		
+		var GozerPV; //engine
+		var cRun = 1; //state variables
+		var Trolls = new Array();
+		var srcPic = new Array(); //our troll pics
+		var range = 10;
+		var rand_no = 0;
+
+		
+		var audioFXClick1; //sound effects
+		var audioFXClick2; //sound effects
+		var audioFXClick3; //sound effects
+		
+		function initialize() {
+			document.getElementById("canvas").style.cursor="crosshair";
+
+			GozerPV = new Engine();
+			GozerPV.Init();
+			GozerPV.SetState(cRun);
+			//GozerPV.SetSize640();
+			GozerPV.SetSize800();
+			GozerPV.SetFPS(3); //frames per secod
+			GozerPV.Fill("#000000"); //if fill not set it will default to white
+			GozerPV.Background("image/back.png"); //
+			GozerPV.Front("image/front.png"); //
+			setTrolls();
+			
+			audioFXClick1 = document.createElement('audio');
+			audioFXClick2 = document.createElement('audio');
+			audioFXClick3 = document.createElement('audio');
+			
+			audioFXClick1.setAttribute('src', "audio/mhit1b.ogg");
+			audioFXClick2.setAttribute('src', "audio/mhit2b.ogg");
+			audioFXClick3.setAttribute('src', "audio/mhit3b.ogg");
+			
+			GozerPV.Run();
+		}
+		
+		function setTrolls() {
+			var num = 1; //number of trolls
+			
+			srcPic.push("image/troll1.png");
+			srcPic.push("image/troll2.png");
+			srcPic.push("image/troll3.png");
+			
+			for( var i = 0; i < num; i++ ) {
+				Trolls.push(num-1);
+				GozerPV.addActor(i, 250, 184, 89, 87, srcPic[0], srcPic.length);
+			}
+		}
+		
+		function drawEvent() {
+			Actors.getVal(Trolls[0]).hImage.src = srcPic[Actors.getVal(Trolls[0]).getNextFrame()];
+			setTimeout(updatePosition, 800);
+		}
+		
+		function updatePosition() {
+			if (range > 1) {
+				Actors.getVal(Trolls[0]).y += 1;
+				Actors.getVal(Trolls[0]).x -= 3;
+				Actors.getVal(Trolls[0]).width += 14;
+				Actors.getVal(Trolls[0]).height += 14;
+				range--;
+			}
+		}
+		
+		//extended from engine by game
+		function clickEvent(name) {
+			buttonClick(name);
+		}
+
+		//the commands to run when the button name is click
+		function buttonClick(name) {
+			switch (name) {
+				case 0:
+					rand_no = Math.ceil(3*Math.random());
+					switch (rand_no) {
+						case 1:
+							
+							audioFXClick1.play();
+							break;
+						case 2:
+							
+							audioFXClick2.play();
+							break;
+						case 3:
+							
+							audioFXClick3.play();
+							break;
+					}
+					break;
+				case "pause":
+					break;
+				case "next":
+					break;
+				default:
+					
+			}
+		}
+	</script>
+</body>
+</html>

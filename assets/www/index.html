@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+
+  <head>
+    <title>Troll Shoot</title>
+    <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
+    <script type="text/javascript" charset="utf-8">
+       function onLoad(){
+          document.addEventListener("deviceready", onDeviceReady, true);
+       }
+
+       function onDeviceReady(){
+          if (supportsLocalStorage()) {
+            //navigator.notification.alert("Troll Shoot finish loading. Touch ok to continue.");
+          } else {
+            navigator.notification.alert("No native support for HTML5 storage available!");
+          }
+       }
+       
+       function supportsLocalStorage() {
+          try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+          } catch (e) {
+            return false;
+          }
+       }
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<style type="text/css">
+		body{
+			background:#ffffff url('mat.jpg') no-repeat right top;
+			margin-right:640px;
+			}
+	</style>
+  </head>
+
+  <body onload="onLoad();">
+  <script type="text/javascript">
+    var admob_vars = {
+    pubid: 'a14e7cc7a3187c9', // publisher id
+    bgcolor: '7F90AA', // background color (hex)
+    text: 'FFFFFF', // font-color (hex)
+    test: false // test mode, set to false to receive live ads
+    };
+  </script>
+  <script type="text/javascript" src="http://mmv.admob.com/static/iphone/iadmob.js"></script>
+
+      <h3>
+	  You are the great hero of Tambunan, Mat Salleh! Your mission: shoot your way through all the trolls
+	  that has been sent by the British North Borneo Company! With a magical bow gifted to you by the pirate
+	  Jack Sparrow, you must survive or everything will be lost...
+	  </h3>
+	  
+      <dl>
+        <dt><a href="trollshoot.html"><img src="shoot.png" alt="shoot" width="138" height="32" /></a></dt>
+      </dl>
+  </body>
+</html>
